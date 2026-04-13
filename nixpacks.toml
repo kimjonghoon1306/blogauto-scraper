@@ -1,0 +1,28 @@
+# nixpacks.toml
+# Railway가 이 파일을 보고 빌드 환경을 결정합니다.
+# Puppeteer headless Chrome에 필요한 시스템 라이브러리를 포함합니다.
+
+[phases.setup]
+nixPkgs = [
+  "nodejs_20",
+  "chromium",
+  "nss",
+  "freetype",
+  "harfbuzz",
+  "ca-certificates",
+  "ttf-dejavu",
+]
+
+[phases.install]
+cmds = ["npm install"]
+
+[phases.build]
+# 빌드 단계 없음 (순수 Node.js)
+
+[start]
+cmd = "node server.js"
+
+[variables]
+# Puppeteer가 시스템 Chromium을 사용하도록 강제 (자체 다운로드 방지 → 빌드 속도 향상)
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"
+PUPPETEER_EXECUTABLE_PATH = "/run/current-system/sw/bin/chromium"
