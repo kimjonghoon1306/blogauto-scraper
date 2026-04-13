@@ -174,7 +174,7 @@ async function fetchHtml(url, timeoutMs = 8000) {
 // ── 사이트 정의 ───────────────────────────────────────
 const SITES = [
   { name: "강남맛집체험단", url: "https://xn--939au0g4vj8sq.net", fallback: "http://xn--939au0g4vj8sq.net", key: "gangnam",     jsRender: true  },
-  { name: "디너의여왕",     url: "https://dinnerqueen.net",         key: "dinnerqueen", jsRender: true  },
+  { name: "디너의여왕",     url: "https://dinnerqueen.net/taste",   key: "dinnerqueen", jsRender: true  },
   { name: "레뷰",           url: "https://www.revu.net/campaign",   key: "revu",        jsRender: false },
   { name: "모두의체험단",   url: "https://www.modan.kr/campaign",  key: "modan",       jsRender: false },
   { name: "태그바이",       url: "https://www.tagby.io/recruit",    key: "tagby",       jsRender: false },
