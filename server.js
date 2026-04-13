@@ -34,7 +34,7 @@ async function kvSet(key, value) {
       headers: { Authorization: `Bearer ${KV_TOKEN}` },
     });
     const d = await r.json();
-    return d.result === "OK";
+    return r.status === 200;
   } catch (e) {
     console.error("[KV] set error:", e.message);
     return false;
@@ -256,4 +256,3 @@ app.get("/crawl", authCheck, async (_req, res) => {
 app.listen(PORT, () => {
   console.log(`[blogauto-crawler] listening on :${PORT}`);
 });
-
