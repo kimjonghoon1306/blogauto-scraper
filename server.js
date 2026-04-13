@@ -29,12 +29,18 @@ async function kvSet(key, value) {
   if (!KV_URL || !KV_TOKEN) return false;
   try {
     const serialized = JSON.stringify(value);
-    const r = await fetch(`${KV_URL}/set/${encodeURIComponent(key)}/${encodeURIComponent(serialized)}`, {
+    // Upstash REST API: SET command via pipeline (body 방식, URL 길이 제한 없음)
+    const r = await fetch(`${KV_URL}/pipeline`, {
       method: "POST",
-      headers: { Authorization: `Bearer ${KV_TOKEN}` },
+      headers: {
+        Authorization: `Bearer ${KV_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify([["SET", key, serialized]]),
     });
     const d = await r.json();
-    return r.status === 200;
+    console.log("[KV] 저장 응답:", JSON.stringify(d).slice(0, 100));
+    return Array.isArray(d) && d[0]?.result === "OK";
   } catch (e) {
     console.error("[KV] set error:", e.message);
     return false;
