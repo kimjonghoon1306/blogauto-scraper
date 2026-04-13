@@ -70,7 +70,14 @@ let gId = Date.now();
 const URL_PATTERNS = {
   gangnam:     /\/cp\/[?]id=\d+/,
   dinnerqueen: /\/taste\/\d+/,
+  modan:       /\/\d{3,}$/,   // 3자리 이상 숫자 ID만 (실제 캠페인 페이지)
 };
+
+const TITLE_BLOCKLIST = [
+  "전체보기", "등록하기", "바로가기", "신청하기", "입점 문의", "무료로 시작",
+  "블로그", "체험후기", "인스타그램", "카카오", "네이버", "Special Program",
+  "촬영단", "이달의 PICK", "선정 확률 UP", "업체 등록",
+];
 
 function parseHtml(html, site) {
   const results = [];
@@ -87,6 +94,8 @@ function parseHtml(html, site) {
 
     if (pattern) {
       if (!pattern.test(fullHref) || seen.has(fullHref)) continue;
+      // 블랙리스트 제목 필터
+      if (TITLE_BLOCKLIST.some(b => text.includes(b))) continue;
       seen.add(fullHref);
     } else {
       if (!isCampaignLike(text) || seen.has(text)) continue;
@@ -167,7 +176,7 @@ const SITES = [
   { name: "강남맛집체험단", url: "https://xn--939au0g4vj8sq.net", fallback: "http://xn--939au0g4vj8sq.net", key: "gangnam",     jsRender: true  },
   { name: "디너의여왕",     url: "https://dinnerqueen.net",         key: "dinnerqueen", jsRender: true  },
   { name: "레뷰",           url: "https://www.revu.net/campaign",   key: "revu",        jsRender: false },
-  { name: "모두의체험단",   url: "https://www.modan.kr",            key: "modan",       jsRender: false },
+  { name: "모두의체험단",   url: "https://www.modan.kr/campaign",  key: "modan",       jsRender: false },
   { name: "태그바이",       url: "https://www.tagby.io/recruit",    key: "tagby",       jsRender: false },
 ];
 
