@@ -70,7 +70,7 @@ let gId = Date.now();
 const URL_PATTERNS = {
   gangnam:     /\/cp\/[?]id=\d+/,
   dinnerqueen: /\/taste\/\d+/,
-  modan:       /\/\d{3,}$/,   // 3자리 이상 숫자 ID만 (실제 캠페인 페이지)
+  modan:       /\/\?idx=\d+/,  // 실제 캠페인 URL: /?idx=숫자
 };
 
 const TITLE_BLOCKLIST = [
@@ -176,7 +176,7 @@ const SITES = [
   { name: "강남맛집체험단", url: "https://xn--939au0g4vj8sq.net", fallback: "http://xn--939au0g4vj8sq.net", key: "gangnam",     jsRender: true  },
   { name: "디너의여왕",     url: "https://dinnerqueen.net/taste",   key: "dinnerqueen", jsRender: false },
   { name: "레뷰",           url: "https://www.revu.net/campaign",   key: "revu",        jsRender: false },
-  { name: "모두의체험단",   url: "https://www.modan.kr/campaign",  key: "modan",       jsRender: false },
+  { name: "모두의체험단",   url: "https://www.modan.kr/matzip",    key: "modan",       jsRender: false },
   { name: "태그바이",       url: "https://www.tagby.io/recruit",    key: "tagby",       jsRender: false },
 ];
 
